@@ -5,6 +5,7 @@ public:
     bool canBeValid(string s, string locked) {
         int N = s.length();
 
+        // edge case
         if (N % 2) {
             return false;
         }
