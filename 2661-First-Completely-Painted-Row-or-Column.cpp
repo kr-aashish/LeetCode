@@ -1,5 +1,8 @@
+// https://leetcode.com/problems/first-completely-painted-row-or-column
+
 class Solution {
 public:
+    // Hash Table
     int firstCompleteIndex(vector<int>& arr, vector<vector<int>>& mat) {
         int numberOfRows = mat.size();
         int numberOfColumns = mat.back().size();
