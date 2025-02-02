@@ -1,6 +1,6 @@
 class MinStack {
 private:
-    std::stack<std::pair<int, int>> stack;
+    stack<pair<int, int>> stack;
 
 public:
     MinStack() {}
@@ -12,12 +12,18 @@ public:
         }
 
         int currentMin = stack.top().second;
-        stack.push({x, std::min(x, currentMin)});
+        stack.push({x, min(x, currentMin)});
     }
 
-    void pop() { stack.pop(); }
+    void pop() { 
+        stack.pop(); 
+    }
 
-    int top() { return stack.top().first; }
+    int top() { 
+        return stack.top().first; 
+    }
 
-    int getMin() { return stack.top().second; }
+    int getMin() { 
+        return stack.top().second; 
+    }
 };
