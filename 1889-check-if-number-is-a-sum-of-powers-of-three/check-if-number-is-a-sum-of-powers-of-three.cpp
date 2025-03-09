@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/check-if-number-is-a-sum-of-powers-of-three/?envType=daily-question&envId=2025-03-04
 class Solution {
 public:
     bool checkPowersOfThree(int n) {
