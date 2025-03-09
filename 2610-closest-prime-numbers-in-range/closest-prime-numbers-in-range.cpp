@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/closest-prime-numbers-in-range/description/?envType=daily-question&envId=2025-03-07
 class Solution {
 public:
     vector<int> closestPrimes(int left, int right) {
