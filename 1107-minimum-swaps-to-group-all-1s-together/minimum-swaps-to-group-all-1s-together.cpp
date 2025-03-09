@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/minimum-swaps-to-group-all-1s-together/description/
 class Solution {
 public:
     int minSwaps(vector<int>& data) {
