@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/find-k-length-substrings-with-no-repeated-characters/description/
 class Solution {
 public:
     int numKLenSubstrNoRepeats(string s, int k) {
