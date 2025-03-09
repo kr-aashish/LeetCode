@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/apply-operations-to-an-array/description/?envType=daily-question&envId=2025-03-01
 class Solution {
 public:
     vector<int> applyOperations(vector<int>& nums) {
