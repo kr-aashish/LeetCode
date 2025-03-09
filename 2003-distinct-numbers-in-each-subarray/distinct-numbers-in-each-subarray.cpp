@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/distinct-numbers-in-each-subarray/description/
 class Solution {
 public:
     vector<int> distinctNumbers(vector<int>& nums, int k) {
