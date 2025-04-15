@@ -1,28 +1,25 @@
-// https://leetcode.com/problems/minimum-recolors-to-get-k-consecutive-black-blocks/description/?envType=daily-question&envId=2025-03-08
 class Solution {
 public:
     int minimumRecolors(string blocks, int k) {
-        int left = 0, numWhites = 0, numRecolors = INT_MAX;
+        int len = blocks.length();
+        vector<int> prefixSum(len, 0);
 
-        // Move right pointer
-        for (int right = 0; right < blocks.size(); right++) {
-            // Increment numWhites if block at right pointer is white
-            if (blocks[right] == 'W') {
-                numWhites++;
-            }
-
-            // k consecutive elements are found
-            if (right - left + 1 == k) {
-                // Update minimum
-                numRecolors = min(numRecolors, numWhites);
-
-                // Decrement numWhites if block at left pointer is white
-                if (blocks[left] == 'W') numWhites--;
-
-                // Move left pointer
-                left++;
+        for (int i = 0; i < len; i++) {
+            prefixSum[i] = blocks[i] == 'B';
+            
+            if (i) {
+                prefixSum[i] += prefixSum[i - 1];
             }
         }
-        return numRecolors;
+
+        int minOperations = len;
+        for (int i = k - 1; i < len; i++) {
+            int value = prefixSum[i];
+            if (i - k >= 0) {
+                value -= prefixSum[i - k];
+            }
+            minOperations = min(minOperations, k - value);
+        }
+        return minOperations;
     }
 };
