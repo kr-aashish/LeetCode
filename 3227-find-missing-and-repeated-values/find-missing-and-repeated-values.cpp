@@ -17,6 +17,7 @@ public:
         int lastSetBit = (xorValue & (~(xorValue - 1)));
         int valueOne = 0;
         int valueTwo = 0;
+        // Missed taking xor for both!
         for (int i = 1; i <= n * n; i++) {
             if (lastSetBit & i) {
                 valueOne ^= i;
