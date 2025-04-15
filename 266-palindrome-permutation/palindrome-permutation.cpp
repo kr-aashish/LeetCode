@@ -1,14 +1,16 @@
-// https://leetcode.com/problems/palindrome-permutation/?envType=weekly-question&envId=2025-03-15
 class Solution {
 public:
     bool canPermutePalindrome(string s) {
-        unordered_set<char> char_set;
-        for (char c : s) {
-            if (char_set.find(c) != char_set.end())
-                char_set.erase(c);
-            else
-                char_set.insert(c);
+        vector<int> freq(26, 0);
+        for (auto character : s) {
+            freq[character - 'a']++;
         }
-        return char_set.size() <= 1;
+
+        int countOfOddCharacters = 0;
+        for (int i = 0; i < 26; i++) {
+            countOfOddCharacters += (freq[i] % 2);
+        }
+
+        return countOfOddCharacters <= 1;
     }
 };
