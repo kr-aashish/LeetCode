@@ -1,31 +1,55 @@
-// https://leetcode.com/problems/find-missing-and-repeated-values/description/?envType=daily-question&envId=2025-03-06
 class Solution {
 public:
     vector<int> findMissingAndRepeatedValues(vector<vector<int>>& grid) {
-        long long sum = 0, sqrSum = 0;
-        long long n = grid.size();
-        long long total = n * n;
+        int n = grid.size();
+        int xorValue = 0;
 
-        // Calculate actual sum and squared sum from grid
-        for (int row = 0; row < n; ++row) {
-            for (int col = 0; col < n; ++col) {
-                sum += grid[row][col];
-                sqrSum +=
-                    static_cast<long long>(grid[row][col]) * grid[row][col];
+        // XOR all numbers from 1 to n^2
+        for (int i = 1; i <= n * n; i++) {
+            xorValue ^= i;
+        }
+        // XOR all numbers in the grid
+        for (auto& row : grid) {
+            for (int num : row) {
+                xorValue ^= num;
             }
         }
+        // xorValue now equals (repeated XOR missing)
 
-        // Calculate differences from expected sums
-        // Expected sum: n(n+1)/2, Expected square sum: n(n+1)(2n+1)/6
-        long long sumDiff = sum - total * (total + 1) / 2;
-        long long sqrDiff = sqrSum - total * (total + 1) * (2 * total + 1) / 6;
+        // Isolate the rightmost set bit in xorValue
+        int setBit = xorValue & (-xorValue);
+        int x = 0, y = 0;
 
-        // Using math: If x is repeated and y is missing
-        // sumDiff = x - y
-        // sqrDiff = x² - y²
-        int repeat = (sqrDiff / sumDiff + sumDiff) / 2;
-        int missing = (sqrDiff / sumDiff - sumDiff) / 2;
+        // Partition numbers 1 to n^2 into two groups based on the set bit
+        for (int i = 1; i <= n * n; i++) {
+            if (i & setBit)
+                x ^= i;
+            else
+                y ^= i;
+        }
+        // Partition grid numbers into two groups based on the set bit
+        for (auto& row : grid) {
+            for (int num : row) {
+                if (num & setBit)
+                    x ^= num;
+                else
+                    y ^= num;
+            }
+        }
+        // Now, x and y are the two candidates but we don't know
+        // which one is the repeated number and which is missing.
 
-        return {repeat, missing};
+        // Determine which candidate is repeated in the grid
+        int count = 0;
+        for (auto& row : grid) {
+            for (int num : row) {
+                if (num == x)
+                    count++;
+            }
+        }
+        if (count == 2)
+            return {x, y}; // x is repeated, y is missing
+        else
+            return {y, x}; // y is repeated, x is missing
     }
 };
