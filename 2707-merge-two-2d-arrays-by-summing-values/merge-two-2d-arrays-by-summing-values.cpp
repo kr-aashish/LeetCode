@@ -1,45 +1,39 @@
-// https://leetcode.com/problems/merge-two-2d-arrays-by-summing-values/description/?envType=daily-question&envId=2025-03-02
 class Solution {
 public:
-    vector<vector<int>> mergeArrays(vector<vector<int>>& nums1,
-                                    vector<vector<int>>& nums2) {
-        int N1 = nums1.size(), N2 = nums2.size();
-        int ptr1 = 0, ptr2 = 0;
+    vector<vector<int>> mergeArrays(vector<vector<int>>& nums1, vector<vector<int>>& nums2) {
+        int pointerOne = 0;
+        int pointerTwo = 0;
 
-        vector<vector<int>> mergedArray;
-        while (ptr1 < N1 && ptr2 < N2) {
-            // If the id is same, add the values and insert to the result.
-            // Increment both pointers.
-            if (nums1[ptr1][0] == nums2[ptr2][0]) {
-                mergedArray.push_back(
-                    {nums1[ptr1][0], nums1[ptr1][1] + nums2[ptr2][1]});
-                ptr1++;
-                ptr2++;
-            } else if (nums1[ptr1][0] < nums2[ptr2][0]) {
-                // If the id in nums1 is smaller, add it to result and increment
-                // the pointer
-                mergedArray.push_back(nums1[ptr1]);
-                ptr1++;
+        vector<vector<int>> numsMerged;
+        while (pointerOne < nums1.size() and pointerTwo < nums2.size()) {
+            auto pairOne = nums1[pointerOne];
+            auto pairTwo = nums2[pointerTwo];
+
+            if (pairOne[0] < pairTwo[0]) {
+                numsMerged.push_back(pairOne);
+                pointerOne++;
+            } else if (pairOne[0] > pairTwo[0]) {
+                numsMerged.push_back(pairTwo);
+                pointerTwo++;
             } else {
-                // If the id in nums2 is smaller, add it to result and increment
-                // the pointer
-                mergedArray.push_back(nums2[ptr2]);
-                ptr2++;
+                numsMerged.push_back({pairOne[0], pairOne[1] + pairTwo[1]});
+                pointerOne++;
+                pointerTwo++;
             }
         }
 
-        // If pairs are remaining in the nums1, then add them to the result.
-        while (ptr1 < N1) {
-            mergedArray.push_back(nums1[ptr1]);
-            ptr1++;
+        while (pointerOne < nums1.size()) {
+            auto pair = nums1[pointerOne];
+            numsMerged.push_back(pair);
+            pointerOne++;
+        } 
+
+        while (pointerTwo < nums2.size()) {
+            auto pair = nums2[pointerTwo];
+            numsMerged.push_back(pair);
+            pointerTwo++;
         }
 
-        // If pairs are remaining in the nums2, then add them to the result.
-        while (ptr2 < N2) {
-            mergedArray.push_back(nums2[ptr2]);
-            ptr2++;
-        }
-
-        return mergedArray;
+        return numsMerged;
     }
 };
