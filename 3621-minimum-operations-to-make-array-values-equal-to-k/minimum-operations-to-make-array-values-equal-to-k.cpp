@@ -1,4 +1,4 @@
-// Approach: Freq map, rev iteration
+// Approach: Freq map, rev iteration -> rev not required
 
 class Solution {
 public:
