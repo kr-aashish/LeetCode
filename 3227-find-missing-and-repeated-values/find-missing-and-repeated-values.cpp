@@ -1,55 +1,48 @@
 class Solution {
 public:
     vector<int> findMissingAndRepeatedValues(vector<vector<int>>& grid) {
-        int n = grid.size();
         int xorValue = 0;
+        int n = grid.size();
 
-        // XOR all numbers from 1 to n^2
         for (int i = 1; i <= n * n; i++) {
             xorValue ^= i;
         }
-        // XOR all numbers in the grid
-        for (auto& row : grid) {
-            for (int num : row) {
+
+        for (auto row : grid) {
+            for (auto num : row) {
                 xorValue ^= num;
             }
         }
-        // xorValue now equals (repeated XOR missing)
 
-        // Isolate the rightmost set bit in xorValue
-        int setBit = xorValue & (-xorValue);
-        int x = 0, y = 0;
-
-        // Partition numbers 1 to n^2 into two groups based on the set bit
+        int lastSetBit = (xorValue & (~(xorValue - 1)));
+        int valueOne = 0;
+        int valueTwo = 0;
         for (int i = 1; i <= n * n; i++) {
-            if (i & setBit)
-                x ^= i;
-            else
-                y ^= i;
-        }
-        // Partition grid numbers into two groups based on the set bit
-        for (auto& row : grid) {
-            for (int num : row) {
-                if (num & setBit)
-                    x ^= num;
-                else
-                    y ^= num;
+            if (lastSetBit & i) {
+                valueOne ^= i;
+            } else {
+                valueTwo ^= i;
             }
         }
-        // Now, x and y are the two candidates but we don't know
-        // which one is the repeated number and which is missing.
+        for (auto row : grid) {
+            for (auto num : row) {
+                if (lastSetBit & num) {
+                    valueOne ^= num;
+                } else {
+                    valueTwo ^= num;
+                }
+            }
+        }
 
-        // Determine which candidate is repeated in the grid
-        int count = 0;
-        for (auto& row : grid) {
-            for (int num : row) {
-                if (num == x)
-                    count++;
+        int countOne = 0;
+        int countTwo = 0;
+        for (auto row : grid) {
+            for (auto num : row) {
+                countOne += (valueOne == num);
+                countTwo += (valueTwo == num);
             }
         }
-        if (count == 2)
-            return {x, y}; // x is repeated, y is missing
-        else
-            return {y, x}; // y is repeated, x is missing
+
+        return countOne == 2 ? vector<int>{valueOne, valueTwo} : vector<int>{valueTwo, valueOne};
     }
 };
