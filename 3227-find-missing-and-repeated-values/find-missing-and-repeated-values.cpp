@@ -44,6 +44,7 @@ public:
             }
         }
 
+        // explicit typecasting required
         return countOne == 2 ? vector<int>{valueOne, valueTwo} : vector<int>{valueTwo, valueOne};
     }
 };
