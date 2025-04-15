@@ -1,19 +1,27 @@
-// https://leetcode.com/problems/count-symmetric-integers/?envType=daily-question&envId=2025-04-11
+// Approach: Iterate
+
 class Solution {
 public:
     int countSymmetricIntegers(int low, int high) {
-        int res = 0;
-        for (int a = low; a <= high; ++a) {
-            if (a < 100 && a % 11 == 0) {
-                res++;
-            } else if (1000 <= a && a < 10000) {
-                int left = a / 1000 + (a % 1000) / 100;
-                int right = (a % 100) / 10 + a % 10;
-                if (left == right) {
-                    res++;
+        int count = 0;
+        for (int value = low; value <= high; value++) {
+            string strValue = to_string(value);
+            int lenStr = strValue.length();
+            if (lenStr % 2) {
+                continue;
+            }
+            int sumOfFirstNDigits = 0;
+            int sumOfLastNDigits = 0;
+            for (int i = 0; i < strValue.length(); i++) {
+                int digit = strValue[i] - '0';
+                if (i >= lenStr / 2) {
+                    sumOfLastNDigits += digit;
+                } else {
+                    sumOfFirstNDigits += digit;
                 }
             }
+            count += (sumOfFirstNDigits == sumOfLastNDigits);
         }
-        return res;
+        return count;
     }
 };
