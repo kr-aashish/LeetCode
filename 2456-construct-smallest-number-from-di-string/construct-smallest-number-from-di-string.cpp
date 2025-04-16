@@ -1,34 +1,51 @@
-// https://leetcode.com/problems/construct-smallest-number-from-di-string
 class Solution {
-public:
-    string smallestNumber(string pattern) {
-        return to_string(findSmallestNumber(pattern, 0, 0, 0));
-    }
-
-private:
-    // Recursively find the smallest number that satisfies the pattern
-    int findSmallestNumber(string pattern, int currentPosition,
-                           int usedDigitsMask, int currentNum) {
-        // Base case: return the current number when the whole pattern is
-        // processed
-        if (currentPosition > pattern.size()) return currentNum;
-
-        int result = INT_MAX;
-        int lastDigit = currentNum % 10;
-        bool shouldIncrement =
-            currentPosition == 0 || pattern[currentPosition - 1] == 'I';
-
-        // Try all possible digits (1 to 9) that are not yet used and follow the
-        // pattern
-        for (int currentDigit = 1; currentDigit <= 9; ++currentDigit) {
-            if ((usedDigitsMask & 1 << currentDigit) == 0 &&
-                currentDigit > lastDigit == shouldIncrement)
-                result = min(result, findSmallestNumber(
-                                         pattern, currentPosition + 1,
-                                         usedDigitsMask | 1 << currentDigit,
-                                         currentNum * 10 + currentDigit));
+    void generateNums(int level, string currStr, string pattern, vector<string> &nums, vector<bool> &vis) {
+        if (level == pattern.size()) {
+            nums.push_back(currStr);
+            return;
         }
 
-        return result;
+        if (pattern[level] == 'I') {
+            char value = currStr.back();
+
+            for (char nextValue = value + 1; nextValue <= '9'; nextValue++) {
+                if (vis[nextValue - '0']) {
+                    continue;
+                }
+
+                vis[nextValue - '0'] = true;
+                currStr.push_back(nextValue);
+                generateNums(level + 1, currStr, pattern, nums, vis);
+                currStr.pop_back();
+                vis[nextValue - '0'] = false;
+            }
+        } else {
+            char value = currStr.back();
+
+            for (char nextValue = value - 1; nextValue >= '1'; nextValue--) {
+                if (vis[nextValue - '0']) {
+                    continue;
+                }
+
+                vis[nextValue - '0'] = true;
+                currStr.push_back(nextValue);
+                generateNums(level + 1, currStr, pattern, nums, vis);
+                currStr.pop_back();
+                vis[nextValue - '0'] = false;
+            }
+        }
+    }
+
+public:
+    string smallestNumber(string pattern) {
+        vector<string> nums;
+        vector<bool> vis(10, false); 
+        for (char value = '1'; value <= '9'; value++) {
+            vis[value - '0'] = true;
+            generateNums(0, string(1, value), pattern, nums, vis);
+            vis[value - '0'] = false;
+        }
+        sort(nums.begin(), nums.end());
+        return nums[0];
     }
 };
