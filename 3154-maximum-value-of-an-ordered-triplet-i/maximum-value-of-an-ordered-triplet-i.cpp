@@ -1,13 +1,16 @@
-// https://leetcode.com/problems/maximum-value-of-an-ordered-triplet-i/?envType=daily-question&envId=2025-04-02
 class Solution {
 public:
     long long maximumTripletValue(vector<int>& nums) {
-        long maxTriplet = 0, maxElement = 0, maxDiff = 0;
-        for (long num : nums) {
-            maxTriplet = max(maxTriplet, maxDiff * num);
-            maxDiff = max(maxDiff, maxElement - num);
-            maxElement = max(maxElement, num);
+        int maxValue = 0;
+        int maxDiff = 0;    
+        long long maxTripletValue = 0;
+
+        for (int k = 0; k < nums.size(); k++) {
+            maxTripletValue = max(maxTripletValue, 1LL * maxDiff * nums[k]);
+            maxDiff = max(maxDiff, maxValue - nums[k]);
+            maxValue = max(maxValue, nums[k]);
         }
-        return maxTriplet;
+
+        return maxTripletValue;
     }
 };
