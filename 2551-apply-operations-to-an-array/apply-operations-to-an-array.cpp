@@ -9,16 +9,20 @@ public:
             }
         }
 
-        vector<int> result;
-        for (auto num : nums) {
-            if (num) {
-                result.push_back(num);
+        int index = 0;
+        int nonZeroIndex = 0;
+        while (index < sz) {
+            if (nums[index] != 0) {
+                nums[nonZeroIndex] = nums[index];
+                nonZeroIndex++;
             }
+            index++;
         }
-        while (result.size() < sz) {
-            result.push_back(0);
+        while (nonZeroIndex < sz) {
+            nums[nonZeroIndex] = 0;
+            nonZeroIndex++;
         }
 
-        return result;
+        return nums;
     }
 };
