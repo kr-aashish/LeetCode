@@ -1,19 +1,31 @@
-// https://leetcode.com/problems/minimum-operations-to-make-binary-array-elements-equal-to-one-i/description/?envType=daily-question&envId=2025-03-19
 class Solution {
 public:
     int minOperations(vector<int>& nums) {
-        int n = nums.size();
-        int count = 0;
-        for (int i = 0; i <= n - 3; i++) {
-            if (nums[i] == 0) {
-                nums[i] = 1;
-                nums[i + 1] = nums[i + 1] == 0 ? 1 : 0;
-                nums[i + 2] = nums[i + 2] == 0 ? 1 : 0;
-                count++;
+        int sz = nums.size();
+        vector<int> flips(sz, 0);
+
+        int operations = 0;
+        for (int i = 0; i < sz; i++) {
+            if (i) {
+                flips[i] += flips[i - 1];
+            }
+
+            int currentValue = (nums[i] + flips[i]) % 2;
+
+            if (i + 2 > sz - 1 and currentValue == 0) {
+                operations = -1;
+                break;
+            }
+
+            if (currentValue == 0) {
+                flips[i] += 1;
+                if (i + 3 < sz) {
+                    flips[i + 3] -= 1;
+                }
+                operations++;
             }
         }
 
-        if (nums[n - 2] == 0 || nums[n - 1] == 0) return -1;
-        return count;
+        return operations;
     }
 };
