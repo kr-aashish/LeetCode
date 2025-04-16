@@ -1,23 +1,29 @@
-// https://leetcode.com/problems/plus-one/
-// Scenarios to handle
-// [2,7,9]
-// [2,9,9]
-// [9,9,9]
-// digits.insert(digits.begin(), 1)
 class Solution {
 public:
     vector<int> plusOne(vector<int>& digits) {
-        for (int i = digits.size() - 1; i >= 0; i--) {
-            if (digits[i] + 1 != 10) {
-                digits[i] += 1;
-                return digits;
+        vector<int> digitsPlusOne;  
+        int sz = digits.size();
+
+        int carry = 1;
+        for (int i = sz - 1; i >= 0; i--) {
+            int value = carry + digits[i];
+
+            int updatedDigit;
+            if (value < 10) {
+                updatedDigit = value;
+                carry = 0;
+            } else {
+                updatedDigit = value % 10;
+                carry = value / 10;
             }
-            digits[i] = 0;
-            if (i == 0) {
-                digits.insert(digits.begin(), 1);
-                return digits;
-            }
+
+            digitsPlusOne.push_back(updatedDigit);
         }
-        return digits;        
+        if (carry) {
+            digitsPlusOne.push_back(carry);
+        }
+
+        reverse(digitsPlusOne.begin(), digitsPlusOne.end());
+        return digitsPlusOne;
     }
 };
