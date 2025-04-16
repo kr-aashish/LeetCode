@@ -1,37 +1,26 @@
-// https://leetcode.com/problems/length-of-longest-fibonacci-subsequence/?envType=daily-question&envId=2025-02-27
 class Solution {
 public:
     int lenLongestFibSubseq(vector<int>& arr) {
-        int n = arr.size();
-        // dp[prev][curr] stores length of Fibonacci sequence ending at indexes
-        // prev,curr
-        vector<vector<int>> dp(n, vector<int>(n, 0));
-        int maxLen = 0;
+        int sz = arr.size();
+        vector<vector<int>> dp(sz, vector<int>(sz, 2));
+        unordered_map<int, int> index;
+        for (int i = 0; i < sz; i++) {
+            index[arr[i]] = i;
+        }
 
-        // Find all possible pairs that sum to arr[curr]
-        for (int curr = 2; curr < n; curr++) {
-            // Use two pointers to find pairs that sum to arr[curr]
-            int start = 0;
-            int end = curr - 1;
+        int longestLen = 0;
+        for (int i = 0; i < sz; i++) {
+            for (int j = 0; j < i; j++) {
+                int kValue = arr[i] - arr[j];
 
-            while (start < end) {
-                int pairSum = arr[start] + arr[end];
-
-                if (pairSum > arr[curr]) {
-                    end--;
-                } else if (pairSum < arr[curr]) {
-                    start++;
-                } else {
-                    // Found a valid pair, update dp
-                    dp[end][curr] = dp[start][end] + 1;
-                    maxLen = max(dp[end][curr], maxLen);
-                    end--;
-                    start++;
+                if (index.count(kValue) and index[kValue] < j) {
+                    int k = index[kValue];
+                    dp[j][i] = max(dp[j][i], dp[k][j] + 1);
+                    longestLen = max(longestLen, dp[j][i]);
                 }
             }
         }
 
-        // Add 2 to include first two numbers, or return 0 if no sequence found
-        return maxLen == 0 ? 0 : maxLen + 2;
+        return longestLen >= 3 ? longestLen : 0;
     }
 };
