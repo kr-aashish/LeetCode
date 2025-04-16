@@ -1,21 +1,24 @@
-// https://leetcode.com/problems/merge-sorted-array/
-// Rev fill for in place
 class Solution {
 public:
     void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
-        int midx = m - 1;
-        int nidx = n - 1;
-        int right = m + n - 1;
+        int index = m + n - 1;
+        int pointerOne = m - 1;
+        int pointerTwo = n - 1;
 
-        while (nidx >= 0) {
-            if (midx >= 0 && nums1[midx] > nums2[nidx]) {
-                nums1[right] = nums1[midx];
-                midx--;
+        while (index >= 0 and pointerOne >= 0 and pointerTwo >= 0) {
+            if (nums1[pointerOne] > nums2[pointerTwo]) {
+                nums1[index--] = nums1[pointerOne--];
             } else {
-                nums1[right] = nums2[nidx];
-                nidx--;
+                nums1[index--] = nums2[pointerTwo--];
             }
-            right--;
-        }        
+        }
+
+        while (index >= 0 and pointerOne >= 0) {
+            nums1[index--] = nums1[pointerOne--];
+        }
+
+        while (index >= 0 and pointerTwo >= 0) {
+            nums1[index--] = nums2[pointerTwo--];
+        }
     }
 };
