@@ -1,16 +1,18 @@
-// https://leetcode.com/problems/count-number-of-bad-pairs
 class Solution {
 public:
     long long countBadPairs(vector<int>& nums) {
-        unordered_map<int, int> freq;
-        long long goodPairs = 0, n = nums.size();
-        
-        for (int i = 0; i < n; i++) {
-            int key = nums[i] - i;
-            goodPairs += freq[key];
-            freq[key]++;
+        int sz = nums.size();
+        unordered_map<int, int> values;
+
+        long long count = 0;
+        for (int i = 0; i < sz; i++) {
+            count += values[nums[i] - i];
+            values[nums[i] - i]++;
         }
-        
-        return (n * (n - 1)) / 2 - goodPairs;
+
+        long long total = 1LL * sz * (sz - 1);
+        total /= 2;
+
+        return total - count;
     }
 };
