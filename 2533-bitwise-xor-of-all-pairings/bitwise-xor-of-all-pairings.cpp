@@ -1,29 +1,21 @@
-// https://leetcode.com/problems/bitwise-xor-of-all-pairings
 class Solution {
 public:
     int xorAllNums(vector<int>& nums1, vector<int>& nums2) {
-        int xorNums1 = 0, xorNums2 = 0;
+        int lenOne = nums1.size();
+        int lenTwo = nums2.size();
 
-        // XOR all elements in nums1
-        for (int num : nums1) {
-            xorNums1 ^= num;
+        int xorVal = 0;
+        if (lenTwo % 2) {
+            for (auto num : nums1) {
+                xorVal ^= num;
+            }
+        }
+        if (lenOne % 2) {
+            for (auto num : nums2) {
+                xorVal ^= num;
+            }
         }
 
-        // XOR all elements in nums2
-        for (int num : nums2) {
-            xorNums2 ^= num;
-        }
-
-        // "all pairings of integers between nums1 and nums2"
-        // Result depends on the parity of sizes
-        int result = 0;
-        if (nums2.size() % 2 != 0) {
-            result ^= xorNums1;
-        }
-        if (nums1.size() % 2 != 0) {
-            result ^= xorNums2;
-        }
-
-        return result;
+        return xorVal;
     }
 };
