@@ -10,7 +10,6 @@ public:
         int countB = 0;
         int countC = 0;
 
-        unordered_map<int, int> range;
         while (tail < len) {
             while (head + 1 < len and (!countA or !countB or !countC)) {
                 head++;
@@ -20,7 +19,6 @@ public:
             } 
 
             if (countA and countB and countC) {
-                cout << tail << " " << head << endl;
                 // substrings += (tail - 0 + 1) * (len - 1 - head + 1);
                 substrings += len - head;
             }
