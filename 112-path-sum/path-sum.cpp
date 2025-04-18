@@ -12,10 +12,12 @@
 class Solution {
 public:
     bool hasPathSum(TreeNode* root, int targetSum) {
+        // Missed null root with 0 targetSum is not valid!
         if (root == NULL) {
             return false;
         }
 
+        // Missed it, the value should really be leaf!
         if (root->val == targetSum and !root->left and !root->right) {
             return true;
         }
