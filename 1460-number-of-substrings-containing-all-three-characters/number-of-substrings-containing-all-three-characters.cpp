@@ -1,22 +1,41 @@
-// https://leetcode.com/problems/number-of-substrings-containing-all-three-characters/description/?envType=daily-question&envId=2025-03-11
 class Solution {
 public:
     int numberOfSubstrings(string s) {
+        int tail = 0;
+        int head = -1;
         int len = s.length();
-        // Track last position of a, b, c
-        vector<int> lastPos = {-1, -1, -1};
-        int total = 0;
 
-        for (int pos = 0; pos < len; pos++) {
-            // Update last position of current character
-            lastPos[s[pos] - 'a'] = pos;
+        int substrings = 0;
+        int countA = 0;
+        int countB = 0;
+        int countC = 0;
 
-            // Add count of valid substrings ending at current position
-            // If any character is missing, min will be -1
-            // Else min gives leftmost required character position
-            total += 1 + min({lastPos[0], lastPos[1], lastPos[2]});
+        unordered_map<int, int> range;
+        while (tail < len) {
+            while (head + 1 < len and (!countA or !countB or !countC)) {
+                head++;
+                countA += s[head] == 'a';
+                countB += s[head] == 'b';
+                countC += s[head] == 'c';
+            } 
+
+            if (countA and countB and countC) {
+                cout << tail << " " << head << endl;
+                // substrings += (tail - 0 + 1) * (len - 1 - head + 1);
+                substrings += len - head;
+            }
+
+            if (head < tail) {
+                tail++;
+                head = tail - 1;
+            } else {
+                countA -= s[tail] == 'a';
+                countB -= s[tail] == 'b';
+                countC -= s[tail] == 'c';
+                tail++;
+            }
         }
 
-        return total;
+        return substrings;
     }
 };
