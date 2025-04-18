@@ -10,25 +10,32 @@
  * };
  */
 class Solution {
-    bool isMirror(TreeNode* nodeOne, TreeNode* nodeTwo) {
-        if (!nodeOne and !nodeTwo) {
-            return true;
-        }
-
-        if (!nodeOne or !nodeTwo) {
-            return false;
-        }
-
-        if (nodeOne->val != nodeTwo->val) {
-            return false;
-        }
-
-        return isMirror(nodeOne->left, nodeTwo->right) and 
-            isMirror(nodeOne->right, nodeTwo->left);
-    }
-
 public:
     bool isSymmetric(TreeNode* root) {
-        return isMirror(root, root);
+        queue<TreeNode*> nodes;
+        nodes.push(root);
+        nodes.push(root);
+
+        while (nodes.size() >= 2) {
+            TreeNode* nodeOne = nodes.front();
+            nodes.pop();
+            TreeNode* nodeTwo = nodes.front();
+            nodes.pop();
+
+            if (!nodeOne and !nodeTwo) {
+                continue;
+            } else if (!nodeOne or !nodeTwo) {
+                return false;
+            } else if (nodeOne->val != nodeTwo->val) {
+                return false;
+            }
+
+            nodes.push(nodeOne->left);
+            nodes.push(nodeTwo->right);
+            nodes.push(nodeOne->right);
+            nodes.push(nodeTwo->left);
+        }
+
+        return true;
     }
 };
