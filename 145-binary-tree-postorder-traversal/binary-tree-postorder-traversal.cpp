@@ -33,15 +33,10 @@ class Solution {
     }
 public:
     vector<int> postorderTraversal(TreeNode* root) {
-        // 1) early exit on empty tree
-        if (root == NULL) return {};
-
-        // 2) build a dummy node whose left child is the real root 
         TreeNode dummy(-1);
         TreeNode* dummyNode = &dummy;
         dummyNode->left = root;
 
-        // 3) start your Morris walk from the dummy, not from the real root
         root = dummyNode;
 
         TreeNode* curr = root;
