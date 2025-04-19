@@ -10,20 +10,29 @@
  * };
  */
 class Solution {
-    void performPreorderTraversal(TreeNode* node, vector<int> &traversal) {
-        if (node == NULL) {
-            return;
-        }
-
-        traversal.push_back(node->val);
-        performPreorderTraversal(node->left, traversal);
-        performPreorderTraversal(node->right, traversal);
-    }
-
 public:
     vector<int> preorderTraversal(TreeNode* root) {
+        stack<TreeNode*> nodes;
+        nodes.push(root);
         vector<int> traversal;
-        performPreorderTraversal(root, traversal);
+
+        while (!nodes.empty()) {
+            auto node = nodes.top();
+            nodes.pop();
+
+            if (node != NULL) {
+                traversal.push_back(node->val);
+
+                if (node->right != NULL) {
+                    nodes.push(node->right);
+                }
+                // Left will be pushed later, to process it first
+                if (node->left != NULL) {
+                    nodes.push(node->left);
+                } 
+            }
+        }
+
         return traversal;
     }
 };
