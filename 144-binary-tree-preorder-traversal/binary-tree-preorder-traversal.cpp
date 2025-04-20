@@ -22,14 +22,13 @@ public:
                 curr = curr->right;
             } else {
                 prev = curr->left;
-
                 while (prev->right != NULL and prev->right != curr) {
                     prev = prev->right;
                 }
 
                 if (prev->right == NULL) {
-                    traversal.push_back(curr->val);
                     prev->right = curr;
+                    traversal.push_back(curr->val);
                     curr = curr->left;
                 } else {
                     prev->right = NULL;
