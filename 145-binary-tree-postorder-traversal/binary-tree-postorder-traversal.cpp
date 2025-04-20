@@ -10,36 +10,31 @@
  * };
  */
 class Solution {
-    void reverseSubtreeLinks(TreeNode* startNode, TreeNode* endNode) {
-        if (startNode == endNode) {
-            return;  // If the start and end nodes are the same, no need to
-                     // reverse
+    void reverseSubtreeLinks(TreeNode* start, TreeNode* end) {
+        if (start == end) {
+            return;
         }
-
+        
+        TreeNode* curr = start;
         TreeNode* prev = NULL;
-        TreeNode* current = startNode;
         TreeNode* next = NULL;
+        while (curr != end) {
+            next = curr->right;
+            curr->right = prev;
 
-        // Reverse the direction of the pointers in the subtree
-        while (current != endNode) {
-            next = current->right;
-            current->right = prev;
-            prev = current;
-            current = next;
+            prev = curr;
+            curr = next;
         }
 
-        // Reverse the last node
-        current->right = prev;
+        curr->right = prev;
     }
+
 public:
     vector<int> postorderTraversal(TreeNode* root) {
-        TreeNode dummy(-1);
-        TreeNode* dummyNode = &dummy;
-        dummyNode->left = root;
+        TreeNode* dummy = new TreeNode(-1);
+        dummy->left = root;
 
-        root = dummyNode;
-
-        TreeNode* curr = root;
+        TreeNode* curr = dummy;
         TreeNode* prev = NULL;
         vector<int> traversal;
 
@@ -48,7 +43,6 @@ public:
                 curr = curr->right;
             } else {
                 prev = curr->left;
-
                 while (prev->right != NULL and prev->right != curr) {
                     prev = prev->right;
                 }
@@ -59,14 +53,13 @@ public:
                 } else {
                     TreeNode* node = prev;
                     reverseSubtreeLinks(curr->left, prev);
-
                     while (node != curr->left) {
                         traversal.push_back(node->val);
                         node = node->right;
                     }
-
                     traversal.push_back(node->val);
                     reverseSubtreeLinks(prev, curr->left);
+
                     prev->right = NULL;
                     curr = curr->right;
                 }
