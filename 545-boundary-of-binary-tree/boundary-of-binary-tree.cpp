@@ -60,7 +60,7 @@ public:
 
         vector<int> leafBoundary;
         populateLeafBoundary(root->left, leafBoundary);
-        populateLeafBoundary(root->right, leafBoundary);
+        populateLeafBoundary(root->right, leafBoundary); // both seperately, not only for root
 
         vector<int> boundary;
         boundary.push_back(root->val);
