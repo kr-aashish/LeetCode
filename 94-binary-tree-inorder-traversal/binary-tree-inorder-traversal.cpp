@@ -22,7 +22,6 @@ public:
                 curr = curr->right;
             } else {
                 prev = curr->left;
-
                 while (prev->right != NULL and prev->right != curr) {
                     prev = prev->right;
                 }
