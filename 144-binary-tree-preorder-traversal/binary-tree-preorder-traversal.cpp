@@ -28,7 +28,7 @@ public:
 
                 if (prev->right == NULL) {
                     prev->right = curr;
-                    traversal.push_back(curr->val);
+                    traversal.push_back(curr->val); // Just this will be here instead of else block!
                     curr = curr->left;
                 } else {
                     prev->right = NULL;
