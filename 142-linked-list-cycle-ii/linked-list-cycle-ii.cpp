@@ -9,14 +9,14 @@
 class Solution {
 public:
     ListNode *detectCycle(ListNode *head) {
-        if (!head or !head->next) {
+        if (!head or !head->next) { // len 0 or len 1 -> no cycle
             return NULL;
         }
 
         ListNode* pSlow = head;
         ListNode* pFast = head;
 
-        while (pFast and pFast->next) { // both
+        while (pFast and pFast->next) { // pFast check also needed
             pSlow = pSlow->next;
             pFast = pFast->next->next;
 
