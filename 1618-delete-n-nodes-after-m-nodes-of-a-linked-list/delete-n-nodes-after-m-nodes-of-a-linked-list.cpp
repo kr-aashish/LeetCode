@@ -1,26 +1,41 @@
-// https://leetcode.com/problems/delete-n-nodes-after-m-nodes-of-a-linked-list/description/?envType=weekly-question&envId=2025-05-29
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 class Solution {
 public:
     ListNode* deleteNodes(ListNode* head, int m, int n) {
-        ListNode* currentNode = head;
-        ListNode* lastMNode = head;
-        while (currentNode != nullptr) {
-            // initialize mCount to m and nCount to n
-            int mCount = m, nCount = n;
-            // traverse m nodes
-            while (currentNode != nullptr && mCount != 0) {
-                lastMNode = currentNode;
-                currentNode = currentNode->next;
-                mCount--;
+        auto currNode = head;
+
+        while (currNode) {
+            int counter = m - 1;
+            while (counter--) {
+                currNode = currNode->next;
+
+                if (!currNode) {
+                    return head;
+                }
             }
-            // traverse n nodes
-            while (currentNode != nullptr && nCount != 0) {
-                currentNode = currentNode->next;
-                nCount--;
+            auto node = currNode;
+
+            int deleteCounter = n + 1;
+            while (deleteCounter--) {
+                currNode = currNode->next;
+
+                if (!currNode) {
+                    node->next = NULL;
+                    return head;
+                }
             }
-            // delete n nodes
-            lastMNode->next = currentNode;
+            node->next = currNode;
         }
-        return head;    
+
+        return head;
     }
 };
