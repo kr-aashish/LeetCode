@@ -1,4 +1,3 @@
-// https://leetcode.com/problems/find-words-containing-character/?envType=daily-question&envId=2025-05-24
 class Solution {
 public:
     vector<int> findWordsContaining(vector<string>& words, char x) {
