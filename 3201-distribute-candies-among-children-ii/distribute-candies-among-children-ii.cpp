@@ -4,10 +4,12 @@ class Solution {
     }
 
     long long nCr(int n, int r) {
+        // n less than r case
         if (n < r) {
             return 0;
         }
 
+        // Negative case [r can max go till 2]
         if (r == 2) {
             if (n < 2) {
                 return 0;
@@ -32,7 +34,7 @@ class Solution {
 public:
     long long distributeCandies(int n, int limit) {
         long long numberOfWays = 0;
-        for (int i = 0; i <= 3; i++) {
+        for (int i = 0; i <= 3; i++) { // loop not < 3
             numberOfWays += nCr(n - (limit + 1) * i + 3 - 1, 3 - 1) * nCr(3, i) * calculatePower(-1, i);
         }
         return numberOfWays;
