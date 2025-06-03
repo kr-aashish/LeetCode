@@ -1,3 +1,4 @@
+// diff will not be (i - k - 3) or (i - k - 2)
 class Solution {
 public:
     int maxA(int n) {
