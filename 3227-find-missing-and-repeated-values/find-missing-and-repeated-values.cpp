@@ -1,3 +1,4 @@
+// Missed taking xor for both!
 class Solution {
 public:
     vector<int> findMissingAndRepeatedValues(vector<vector<int>>& grid) {
