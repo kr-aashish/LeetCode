@@ -1,3 +1,4 @@
+// Wrong multiplication logic for counting substrings
 class Solution {
 public:
     int numberOfSubstrings(string s) {
