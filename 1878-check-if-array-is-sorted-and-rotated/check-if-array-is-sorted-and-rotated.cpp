@@ -1,4 +1,4 @@
-// https://leetcode.com/problems/check-if-array-is-sorted-and-rotated
+// count > 1 false case
 class Solution {
 public:
     bool check(vector<int>& nums) {
