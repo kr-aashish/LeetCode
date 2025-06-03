@@ -1,3 +1,4 @@
+// Shifting to end without extra space
 class Solution {
 public:
     vector<int> applyOperations(vector<int>& nums) {
