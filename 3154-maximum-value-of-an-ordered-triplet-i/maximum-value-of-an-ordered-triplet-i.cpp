@@ -1,3 +1,4 @@
+// Greedy with maintaining multiple values at each iteration of the loop
 class Solution {
 public:
     long long maximumTripletValue(vector<int>& nums) {
