@@ -1,3 +1,4 @@
+// Combining 2 values into 1
 class Solution {
 public:
     int numEquivDominoPairs(vector<vector<int>>& dominoes) {
