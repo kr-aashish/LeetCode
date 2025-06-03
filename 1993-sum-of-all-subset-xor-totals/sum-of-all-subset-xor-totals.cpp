@@ -1,4 +1,4 @@
-// Anki
+// Unique Solution
 class Solution {
 public:
     int subsetXORSum(vector<int>& nums) {
