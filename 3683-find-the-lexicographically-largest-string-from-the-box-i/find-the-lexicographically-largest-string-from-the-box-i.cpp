@@ -1,3 +1,4 @@
+// Missed the edge case, that's the most basic case too
 class Solution {
 public:
     string answerString(string word, int numFriends) {
