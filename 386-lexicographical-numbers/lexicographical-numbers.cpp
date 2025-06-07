@@ -1,7 +1,7 @@
 // Global way to append char to generate string
 class Solution {
     void generateLexicalOrder(string str, vector<int> &result, int n) {
-        if (str.length() > to_string(n).length()) {
+        if (stoi(str) > n) {
             return;
         }
 
