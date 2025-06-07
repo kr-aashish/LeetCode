@@ -5,9 +5,7 @@ class Solution {
             return;
         }
 
-        if (stoi(str) <= n) {
-            result.push_back(stoi(str));
-        }
+        result.push_back(stoi(str));
 
         for (char character = '0'; character <= '9'; character++) {
             generateLexicalOrder(str + character, result, n);
