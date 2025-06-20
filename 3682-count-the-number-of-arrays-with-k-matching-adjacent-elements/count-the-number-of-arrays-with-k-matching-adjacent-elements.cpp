@@ -1,3 +1,5 @@
+// https://leetcode.com/problems/count-the-number-of-arrays-with-k-matching-adjacent-elements/editorial/?envType=daily-question&envId=2025-06-17
+
 const int MOD = 1e9 + 7;
 const int MX = 1e5;
 
