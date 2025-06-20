@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/maximum-manhattan-distance-after-k-changes/description/?envType=daily-question&envId=2025-06-20
 class Solution {
 public:
     int maxDistance(string s, int k) {
