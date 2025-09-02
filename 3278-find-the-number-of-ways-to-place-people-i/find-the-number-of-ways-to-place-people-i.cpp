@@ -39,7 +39,6 @@ public:
                     }
                 }
                 numberOfPairs += isValid;
-                cout << isValid << endl;
             }
         }
 
