@@ -23,10 +23,6 @@ public:
                 int minY = min(y1, y2);
                 int maxY = max(y1, y2);
 
-                cout << "i , j: " << i << " " << j << endl;
-
-                cout << minX << " " << minY << "  " << maxX << " " << maxY << endl;
-
                 bool isValid = true;
                 for (auto point : points) {
                     if (point == pointOne or
@@ -36,8 +32,6 @@ public:
 
                     int x = point[0];
                     int y = point[1];
-
-                    // cout << x << " " << y << endl;
 
                     if (x >= minX and x <= maxX and 
                         y >= minY and y <= maxY) {
