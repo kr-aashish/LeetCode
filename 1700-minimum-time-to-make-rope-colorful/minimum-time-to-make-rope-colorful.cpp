@@ -1,3 +1,5 @@
+// Started with LR dp then realised it could simply be done in one pass (recursive pass is not required for this case!)
+
 class Solution {
 public:
     int minCost(string colors, vector<int>& neededTime) {
