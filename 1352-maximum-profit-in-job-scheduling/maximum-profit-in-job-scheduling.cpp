@@ -33,12 +33,12 @@ public:
         vector<int> dp(count, 0);
         dp[0] = jobs[0].second;
         for (int i = 1; i < count; i++) {
-            dp[i] = dp[i - 1];
+            dp[i] = dp[i - 1]; // missing
             int prevIdx = findJobEndingJustBefore(i, jobs);
             if (prevIdx == -1) {
-                dp[i] = max(dp[i], jobs[i].second);
+                dp[i] = max(dp[i], jobs[i].second); // missing, dp[i - 1], was taking max of all eventually
             } else {
-                dp[i] = max(dp[i], dp[prevIdx] + jobs[i].second);
+                dp[i] = max(dp[i], dp[prevIdx] + jobs[i].second); // was doing += dp[prevIdx]
             }
         }
 
